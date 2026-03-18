@@ -64,6 +64,7 @@ const Dashboard = () => {
       { icon: 'fa-chart-bar', text: 'Reports', path: '/admin/reports' },
       { icon: 'fa-shield', text: 'Compliance', path: '/admin/compliance' },
       { icon: 'fa-robot', text: 'AI Models', path: '/admin/ai-models' },
+      { icon: 'fa-chart-pie', text: 'Analytics', path: '/admin/admin-analytics' },
       { icon: 'fa-file-export', text: 'Export Data', path: '/admin/export' },
     ];
   };
