@@ -1,7 +1,72 @@
 import React from 'react';
 import Garment3DAnimation from './Garment3DAnimation';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const DashboardHome = ({ stats }) => {
+  // Production Overview Chart Data
+  const productionChartData = {
+    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    datasets: [
+      {
+        label: 'Items Produced',
+        data: [120, 135, 128, 142, 138, 115],
+        backgroundColor: [
+          'rgba(102, 126, 234, 0.9)',
+          'rgba(118, 75, 162, 0.9)',
+          'rgba(240, 147, 251, 0.9)',
+          'rgba(250, 112, 154, 0.9)',
+          'rgba(79, 172, 254, 0.9)',
+          'rgba(67, 233, 123, 0.9)'
+        ],
+        borderWidth: 0,
+        borderRadius: 8,
+        borderSkipped: false,
+      },
+    ],
+  };
+
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        labels: { 
+          color: 'rgba(255, 255, 255, 0.9)',
+          font: { size: 12, family: "'Segoe UI', sans-serif" },
+          padding: 20
+        }
+      },
+      tooltip: {
+        backgroundColor: 'rgba(26, 26, 46, 0.95)',
+        titleColor: '#fff',
+        bodyColor: '#fff',
+        padding: 12,
+        cornerRadius: 10,
+        displayColors: true
+      }
+    },
+    scales: {
+      x: { 
+        ticks: { color: 'rgba(255, 255, 255, 0.8)', font: { size: 11 } },
+        grid: { color: 'rgba(255,255,255,0.05)' }
+      },
+      y: { 
+        ticks: { color: 'rgba(255, 255, 255, 0.8)', font: { size: 11 } },
+        grid: { color: 'rgba(255,255,255,0.05)' }
+      }
+    }
+  };
+
   return (
     <div className="fade-in">
       {/* 3D Garment Animation */}
@@ -43,27 +108,13 @@ const DashboardHome = ({ stats }) => {
 
       <div className="row mt-4">
         <div className="col-md-8">
-          <div className="dashboard-card">
-            <h5>Production Overview</h5>
-            <div className="row text-center">
-              <div className="col-4">
-                <div className="p-3 bg-light rounded">
-                  <h4 className="text-primary">150</h4>
-                  <small>Today's Output</small>
-                </div>
-              </div>
-              <div className="col-4">
-                <div className="p-3 bg-light rounded">
-                  <h4 className="text-success">85%</h4>
-                  <small>Efficiency</small>
-                </div>
-              </div>
-              <div className="col-4">
-                <div className="p-3 bg-light rounded">
-                  <h4 className="text-info">92%</h4>
-                  <small>Quality Rate</small>
-                </div>
-              </div>
+          <div className="dashboard-card glass-card">
+            <h5>
+              <i className="fas fa-chart-bar me-2"></i>
+              Production Overview
+            </h5>
+            <div style={{ height: '280px' }}>
+              <Bar data={productionChartData} options={chartOptions} />
             </div>
           </div>
         </div>

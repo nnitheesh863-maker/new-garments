@@ -21,6 +21,16 @@
   z-index: 0;
 }
 
+.gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, transparent 0%, rgba(15, 23, 42, 0.3) 100%);
+  pointer-events: none;
+}
+
 .particle {
   position: absolute;
   background: rgba(255, 255, 255, 0.1);
@@ -45,8 +55,8 @@
   }
 }
 
-/* Glassmorphism Card */
-.glass-card {
+/* Login Card with Glassmorphism */
+.login-card {
   position: relative;
   z-index: 10;
   width: 100%;
@@ -93,7 +103,7 @@
   }
 }
 
-.glass-inner {
+.login-inner {
   background: rgba(15, 23, 42, 0.8);
   border-radius: 22px;
   padding: 40px;
@@ -140,12 +150,21 @@
   50% { transform: scale(1.05); }
 }
 
-.login-header h2 {
+.login-header .app-title {
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   margin-bottom: 8px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.5px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.login-header .app-subtitle {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
 }
 
 .login-header p {
@@ -452,6 +471,14 @@
   animation-delay: 6s;
 }
 
+.shape-4 {
+  width: 80px;
+  height: 80px;
+  bottom: 10%;
+  left: 15%;
+  animation-delay: 9s;
+}
+
 @keyframes floatShape {
   0%, 100% {
     transform: translate(0, 0) rotate(0deg);
@@ -469,15 +496,15 @@
 
 /* Responsive */
 @media (max-width: 480px) {
-  .glass-inner {
+  .login-inner {
     padding: 30px 20px;
   }
 
-  .login-header h2 {
+  .login-header .app-title {
     font-size: 1.3rem;
   }
 
-  .glass-card {
+  .login-card {
     margin: 15px;
   }
 }
