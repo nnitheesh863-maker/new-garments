@@ -7,6 +7,7 @@ import Reports from '../components/admin/Reports';
 import Compliance from '../components/admin/Compliance';
 import AiModels from '../components/admin/AiModels';
 import AdminExport from '../components/admin/AdminExport';
+import AdminAnalytics from '../components/admin/AdminAnalytics';
 
 const AdminDashboard = () => {
   return (
@@ -18,6 +19,7 @@ const AdminDashboard = () => {
       <Route path="reports" element={<Reports />} />
       <Route path="compliance" element={<Compliance />} />
       <Route path="ai-models" element={<AiModels />} />
+      <Route path="admin-analytics" element={<AdminAnalytics />} />
       <Route path="export" element={<AdminExport />} />
     </Routes>
   );

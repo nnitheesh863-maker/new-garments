@@ -8,6 +8,7 @@ import Machines from '../components/manager/Machines';
 import Quality from '../components/manager/Quality';
 import Leaves from '../components/manager/Leaves';
 import Analytics from '../components/manager/Analytics';
+import ManagerAnalytics from '../components/manager/ManagerAnalytics';
 import Orders from '../components/manager/Orders';
 import ManagerReports from '../components/manager/ManagerReports';
 import ManagerChat from '../components/manager/ManagerChat';
@@ -48,6 +49,7 @@ const ManagerDashboard = () => {
       <Route path="quality" element={<Quality />} />
       <Route path="leaves" element={<Leaves />} />
       <Route path="analytics" element={<Analytics />} />
+      <Route path="manager-analytics" element={<ManagerAnalytics />} />
       <Route path="orders" element={<Orders />} />
       <Route path="reports" element={<ManagerReports />} />
       <Route path="team-chat" element={<ManagerChat />} />

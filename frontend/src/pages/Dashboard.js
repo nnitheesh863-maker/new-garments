@@ -34,6 +34,7 @@ const Dashboard = () => {
         { icon: 'fa-robot', text: 'AI Assistant', path: '/employee/ai-assistant' },
         { icon: 'fa-comments', text: 'Chat', path: '/employee/chat' },
         { icon: 'fa-chart-bar', text: 'Reports', path: '/employee/reports' },
+        { icon: 'fa-chart-line', text: 'Analytics', path: '/employee/analytics' },
       ];
     }
 
@@ -50,6 +51,7 @@ const Dashboard = () => {
         { icon: 'fa-briefcase', text: 'Orders', path: '/manager/orders' },
         { icon: 'fa-bell', text: 'Reports', path: '/manager/reports' },
         { icon: 'fa-comments', text: 'Team Chat', path: '/manager/team-chat' },
+        { icon: 'fa-chart-pie', text: 'Analytics', path: '/manager/manager-analytics' },
         { icon: 'fa-file-export', text: 'Export Data', path: '/manager/export' },
       ];
     }

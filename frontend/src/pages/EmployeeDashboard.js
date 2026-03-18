@@ -12,6 +12,7 @@ import Reports from '../components/employee/Reports';
 import ReportIssue from '../components/employee/ReportIssue';
 import TrainingVideos from '../components/employee/TrainingVideos';
 import AIChatbot from '../components/employee/AIChatbot';
+import EmployeeAnalytics from '../components/employee/EmployeeAnalytics';
 
 const EmployeeDashboard = () => {
   const { t } = useTranslation();
@@ -52,6 +53,7 @@ const EmployeeDashboard = () => {
       <Route path="videos" element={<TrainingVideos />} />
       <Route path="chat" element={<Chat />} />
       <Route path="ai-assistant" element={<AIChatbot />} />
+      <Route path="analytics" element={<EmployeeAnalytics />} />
       <Route path="reports" element={<Reports />} />
       <Route path="report-issue" element={<ReportIssue />} />
     </Routes>
