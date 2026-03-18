@@ -1,0 +1,111 @@
+/* Chart Styles */
+
+.production-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  height: 250px;
+  padding: 20px 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  position: relative;
+}
+
+.chart-bar-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  max-width: 60px;
+}
+
+.chart-bar {
+  width: 40px;
+  background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+  border-radius: 8px 8px 0 0;
+  position: relative;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.chart-bar:hover {
+  background: linear-gradient(180deg, #764ba2 0%, #667eea 100%);
+  transform: scaleX(1.1);
+}
+
+.bar-label {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.chart-bar:hover .bar-label {
+  opacity: 1;
+}
+
+.chart-date {
+  margin-top: 10px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Donut Chart */
+.donut-chart {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #667eea 0deg 120deg,
+    #764ba2 120deg 240deg,
+    #f093fb 240deg 360deg
+  );
+  position: relative;
+  margin: 0 auto;
+}
+
+.donut-chart::before {
+  content: '';
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  right: 25px;
+  bottom: 25px;
+  background: #1a1a2e;
+  border-radius: 50%;
+}
+
+/* Line Chart Alternative */
+.line-chart {
+  height: 200px;
+  position: relative;
+  border-left: 2px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  padding: 20px;
+}
+
+.line-chart::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive Chart */
+@media (max-width: 768px) {
+  .production-chart {
+    height: 200px;
+  }
+  
+  .chart-bar {
+    width: 30px;
+  }
+}

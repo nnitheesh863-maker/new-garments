@@ -1,0 +1,263 @@
+/* 3D Garment Animation with Attractive Colors */
+
+.garment-3d-container {
+  position: relative;
+  width: 100%;
+  height: 350px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  border-radius: 25px;
+  overflow: hidden;
+  perspective: 1000px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.garment-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 3D Garment */
+.garment-3d {
+  position: relative;
+  width: 180px;
+  height: 200px;
+  transform-style: preserve-3d;
+  animation: garmentFloat 4s ease-in-out infinite;
+}
+
+@keyframes garmentFloat {
+  0%, 100% {
+    transform: translateY(0) rotateY(0deg) rotateX(5deg);
+  }
+  25% {
+    transform: translateY(-15px) rotateY(15deg) rotateX(5deg);
+  }
+  50% {
+    transform: translateY(0) rotateY(0deg) rotateX(5deg);
+  }
+  75% {
+    transform: translateY(-10px) rotateY(-15deg) rotateX(5deg);
+  }
+}
+
+.garment-body {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, 
+    #667eea 0%, 
+    #764ba2 30%,
+    #f093fb 60%,
+    #fa709a 100%
+  );
+  clip-path: polygon(
+    20% 0%, 
+    80% 0%, 
+    100% 20%, 
+    100% 100%, 
+    0% 100%, 
+    0% 20%
+  );
+  border-radius: 10px 10px 0 0;
+  box-shadow: 
+    inset 0 0 30px rgba(255, 255, 255, 0.2),
+    0 10px 30px rgba(102, 126, 234, 0.5);
+}
+
+.garment-collar {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 30px;
+  background: linear-gradient(180deg, #4facfe, #00f2fe);
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  box-shadow: 0 5px 15px rgba(79, 172, 254, 0.5);
+}
+
+.garment-sleeve {
+  position: absolute;
+  top: 30px;
+  width: 50px;
+  height: 120px;
+  background: linear-gradient(180deg, #667eea, #764ba2);
+  clip-path: polygon(100% 0%, 100% 100%, 0% 100%, 0% 20%);
+}
+
+.garment-sleeve.left {
+  left: -40px;
+  transform: rotate(-15deg);
+  background: linear-gradient(180deg, #4facfe, #00f2fe);
+}
+
+.garment-sleeve.right {
+  right: -40px;
+  transform: rotate(15deg) scaleX(-1);
+  background: linear-gradient(180deg, #43e97b, #38f9d7);
+}
+
+.garment-pattern {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 40%;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(255, 255, 255, 0.1) 10px,
+    rgba(255, 255, 255, 0.1) 20px
+  );
+  border-radius: 5px;
+}
+
+/* Floating Elements */
+.floating-element {
+  position: absolute;
+  font-size: 24px;
+  color: white;
+  animation: elementFloat 3s ease-in-out infinite;
+}
+
+.floating-element.thread {
+  top: 20%;
+  left: 15%;
+  color: #f093fb;
+  animation-delay: 0s;
+}
+
+.floating-element.needle {
+  top: 30%;
+  right: 15%;
+  color: #4facfe;
+  animation-delay: 0.5s;
+}
+
+.floating-element.measure {
+  bottom: 25%;
+  left: 20%;
+  color: #43e97b;
+  animation-delay: 1s;
+}
+
+@keyframes elementFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-20px) rotate(15deg);
+    opacity: 1;
+  }
+}
+
+/* Particles */
+.particle-3d {
+  position: absolute;
+  border-radius: 50%;
+  animation: particleFloat 8s ease-in-out infinite;
+  filter: blur(2px);
+}
+
+@keyframes particleFloat {
+  0%, 100% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translateY(-30px) translateX(20px) scale(1.2);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-10px) translateX(-20px) scale(0.9);
+    opacity: 0.5;
+  }
+  75% {
+    transform: translateY(-40px) translateX(10px) scale(1.1);
+    opacity: 0.7;
+  }
+}
+
+/* Info Section */
+.garment-info {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: white;
+  z-index: 10;
+}
+
+.garment-info h3 {
+  font-size: 24px;
+  margin: 0;
+  background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+}
+
+.garment-info p {
+  margin: 5px 0 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Glow Effects */
+.garment-3d::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.3) 0%, transparent 70%);
+  animation: glowPulse 3s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .garment-3d-container {
+    height: 280px;
+  }
+  
+  .garment-3d {
+    width: 140px;
+    height: 160px;
+  }
+  
+  .garment-sleeve {
+    width: 40px;
+    height: 100px;
+  }
+  
+  .garment-sleeve.left {
+    left: -30px;
+  }
+  
+  .garment-sleeve.right {
+    right: -30px;
+  }
+}

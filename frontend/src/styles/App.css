@@ -1,0 +1,177 @@
+/* Main App Styles */
+
+.App {
+  min-height: 100vh;
+}
+
+/* Navigation */
+.navbar {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Sidebar */
+.sidebar {
+  transition: all 0.3s ease;
+}
+
+.sidebar-menu .nav-link {
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-menu .nav-link i {
+  width: 25px;
+  text-align: center;
+}
+
+/* Main Content */
+.main-content {
+  background-color: #f5f5f5;
+  min-height: calc(100vh - 56px);
+}
+
+/* Dashboard Grid */
+.row > [class*="col-"] {
+  margin-bottom: 15px;
+}
+
+/* Card Hover Effects */
+.dashboard-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+/* Badge Styles */
+.badge {
+  font-weight: 500;
+}
+
+/* Table Styles */
+.table td,
+.table th {
+  vertical-align: middle;
+}
+
+/* Form Styles */
+.form-control:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+/* Button Styles */
+.btn {
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Alert Styles */
+.alert {
+  border: none;
+  border-radius: 8px;
+}
+
+/* List Group Styles */
+.list-group-item {
+  border-left: none;
+  border-right: none;
+}
+
+.list-group-item:first-child {
+  border-top: none;
+}
+
+.list-group-item:last-child {
+  border-bottom: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Chart Canvas */
+canvas {
+  max-width: 100%;
+}
+
+/* Language Switcher */
+.language-switcher .btn {
+  min-width: 40px;
+}
+
+/* Loading State */
+.loading {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Print Styles */
+@media print {
+  .sidebar,
+  .navbar,
+  .btn {
+    display: none !important;
+  }
+  
+  .main-content {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+/* Animation Classes */
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Status Indicator */
+.status-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.status-indicator.active {
+  background-color: #28a745;
+}
+
+.status-indicator.inactive {
+  background-color: #6c757d;
+}
+
+.status-indicator.warning {
+  background-color: #ffc107;
+}
