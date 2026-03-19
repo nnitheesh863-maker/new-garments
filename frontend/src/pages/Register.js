@@ -38,13 +38,14 @@ const Register = () => {
     ];
 
     const newParticles = [];
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 80; i++) {
       newParticles.push({
         id: i,
         left: Math.random() * 100,
-        delay: Math.random() * 8,
-        size: Math.random() * 20 + 5,
-        duration: Math.random() * 15 + 15,
+        top: Math.random() * 100,
+        delay: Math.random() * 10,
+        size: Math.random() * 25 + 5,
+        duration: Math.random() * 20 + 20,
         color: colors[Math.floor(Math.random() * colors.length)],
         speed: Math.random() * 2 + 1
       });
@@ -75,204 +76,208 @@ const Register = () => {
   };
 
   return (
-    <div className="login-container">
-      <div className="animated-gradient-bg">
+    <div className="fullpage-login-container">
+      <div className="fullpage-bg-effects">
         <div className="gradient-sphere gradient-sphere-1"></div>
         <div className="gradient-sphere gradient-sphere-2"></div>
         <div className="gradient-sphere gradient-sphere-3"></div>
+        <div className="gradient-sphere gradient-sphere-4"></div>
+        <div className="gradient-sphere gradient-sphere-5"></div>
       </div>
 
-      <div className="animated-bg">
-        <div className="gradient-overlay"></div>
+      <div className="fullpage-particles">
         {particles.map(p => (
           <div
             key={p.id}
-            className="particle"
+            className="fullpage-particle"
             style={{
               left: `${p.left}%`,
+              top: `${p.top}%`,
               animationDelay: `${p.delay}s`,
               width: `${p.size}px`,
               height: `${p.size}px`,
               animationDuration: `${p.duration}s`,
               background: p.color,
-              boxShadow: `0 0 ${p.size}px ${p.color}`
+              boxShadow: `0 0 ${p.size * 2}px ${p.color}, 0 0 ${p.size * 4}px ${p.color}`
             }}
           ></div>
         ))}
       </div>
 
-      <div className="floating-shapes">
-        <div className="shape shape-1 animated-shape"></div>
-        <div className="shape shape-2 animated-shape"></div>
-        <div className="shape shape-3 animated-shape"></div>
-        <div className="shape shape-4 animated-shape"></div>
-        <div className="shape shape-5 animated-shape"></div>
-        <div className="shape shape-6 animated-shape"></div>
+      <div className="fullpage-shapes">
+        <div className="fullpage-shape shape-1"></div>
+        <div className="fullpage-shape shape-2"></div>
+        <div className="fullpage-shape shape-3"></div>
+        <div className="fullpage-shape shape-4"></div>
+        <div className="fullpage-shape shape-5"></div>
+        <div className="fullpage-shape shape-6"></div>
+        <div className="fullpage-shape shape-7"></div>
+        <div className="fullpage-shape shape-8"></div>
       </div>
 
-      <div className="login-card">
-        <div
-          className="glow-effect animated-glow"
-          style={{
-            background: `linear-gradient(135deg, ${glowColors[glowColor]}, ${glowColors[(glowColor + 1) % glowColors.length]}, ${glowColors[(glowColor + 2) % glowColors.length]})`
-          }}
-        ></div>
-        <div className="login-inner">
-          <div className="login-header">
-            <div className="logo-container">
-              <div className="logo-icon animated-logo">
-                <i className="fas fa-user-plus"></i>
+      <div className="fullpage-content">
+        <div className="fullpage-login-card">
+          <div
+            className="fullpage-glow-border"
+            style={{
+              background: `linear-gradient(135deg, ${glowColors[glowColor]}, ${glowColors[(glowColor + 1) % glowColors.length]}, ${glowColors[(glowColor + 2) % glowColors.length]}, ${glowColors[(glowColor + 3) % glowColors.length]})`
+            }}
+          ></div>
+
+          <div className="fullpage-card-content">
+            <div className="fullpage-header">
+              <div className="fullpage-logo">
+                <div className="fullpage-logo-icon">
+                  <i className="fas fa-user-plus"></i>
+                </div>
+                <div className="fullpage-logo-ring"></div>
+                <div className="fullpage-logo-glow"></div>
               </div>
-              <div className="logo-glow animated-logo-glow"></div>
-              <div className="logo-ring"></div>
-            </div>
-            <h1 className="app-title animated-title">
-              <span className="title-word">Create</span>
-              <span className="title-word">Your</span>
-              <span className="title-word">Account</span>
-            </h1>
-            <p className="app-subtitle animated-subtitle">
-              <span className="subtitle-word">Join</span>
-              <span className="subtitle-word">the</span>
-              <span className="subtitle-word">System</span>
-            </p>
-          </div>
 
-          {error && (
-            <div className="error-message animated-error">
-              <i className="fas fa-exclamation-circle"></i>
-              <span>{error}</span>
+              <div className="fullpage-title-section">
+                <h1 className="fullpage-title">
+                  <span className="fullpage-title-line">Create Your</span>
+                  <span className="fullpage-title-line accent">Account</span>
+                </h1>
+                <p className="fullpage-subtitle">
+                  <span>Join</span>
+                  <span className="dot">•</span>
+                  <span>the</span>
+                  <span className="dot">•</span>
+                  <span>System</span>
+                </p>
+              </div>
             </div>
-          )}
 
-          {success && (
-            <div className="success-message">
-              <i className="fas fa-check-circle"></i>
-              <span>Registration successful! Redirecting to login...</span>
-            </div>
-          )}
+            {error && (
+              <div className="fullpage-error">
+                <i className="fas fa-exclamation-circle"></i>
+                <span>{error}</span>
+              </div>
+            )}
 
-          <form onSubmit={handleSubmit} className="login-form">
-            <div className="input-group animated-input">
-              <i className="fas fa-user icon-pulse"></i>
-              <input
-                type="text"
-                name="name"
-                placeholder="Full Name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="glow-input"
-              />
-              <div className="input-glow"></div>
-              <div className="input-border-anim"></div>
-            </div>
-            <div className="input-group animated-input" style={{animationDelay: '0.1s'}}>
-              <i className="fas fa-envelope icon-pulse"></i>
-              <input
-                type="email"
-                name="email"
-                placeholder="Email Address"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="glow-input"
-              />
-              <div className="input-glow"></div>
-              <div className="input-border-anim"></div>
-            </div>
-            <div className="input-group animated-input" style={{animationDelay: '0.2s'}}>
-              <i className="fas fa-lock icon-pulse"></i>
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-                className="glow-input"
-              />
-              <div className="input-glow"></div>
-              <div className="input-border-anim"></div>
-            </div>
-            <div className="input-group animated-input" style={{animationDelay: '0.3s'}}>
-              <i className="fas fa-phone icon-pulse"></i>
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Phone Number (Optional)"
-                value={formData.phone}
-                onChange={handleChange}
-                className="glow-input"
-              />
-              <div className="input-glow"></div>
-              <div className="input-border-anim"></div>
-            </div>
-            <div className="input-group animated-input" style={{animationDelay: '0.4s'}}>
-              <i className="fas fa-briefcase icon-pulse"></i>
-              <select
-                name="role"
-                value={formData.role}
-                onChange={handleChange}
-                required
-                className="glow-input"
-                style={{
-                  width: '100%',
-                  padding: '16px 20px 16px 50px',
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  border: '2px solid rgba(255, 255, 255, 0.1)',
-                  borderRadius: '15px',
-                  color: '#fff',
-                  fontSize: '1rem',
-                  outline: 'none',
-                  cursor: 'pointer',
-                  transition: 'all 0.4s ease'
-                }}
-              >
-                <option value="employee" style={{ background: '#0a0a1a' }}>Employee</option>
-                <option value="manager" style={{ background: '#0a0a1a' }}>Manager</option>
-                <option value="admin" style={{ background: '#0a0a1a' }}>Admin</option>
-              </select>
-              <div className="input-glow"></div>
-              <div className="input-border-anim"></div>
-            </div>
-            <div className="input-group animated-input" style={{animationDelay: '0.5s'}}>
-              <i className="fas fa-building icon-pulse"></i>
-              <input
-                type="text"
-                name="department"
-                placeholder="Department"
-                value={formData.department}
-                onChange={handleChange}
-                className="glow-input"
-              />
-              <div className="input-glow"></div>
-              <div className="input-border-anim"></div>
-            </div>
-            <button type="submit" className="login-btn animated-btn" disabled={loading}>
-              {loading ? (
-                <span className="loading-spinner"></span>
-              ) : (
-                <>
-                  <i className="fas fa-user-plus btn-icon"></i>
-                  <span className="btn-text">Create Account</span>
-                  <div className="btn-glow"></div>
-                </>
-              )}
-            </button>
-          </form>
+            {success && (
+              <div className="fullpage-error" style={{ background: 'rgba(34, 197, 94, 0.15)', borderColor: 'rgba(34, 197, 94, 0.4)' }}>
+                <i className="fas fa-check-circle" style={{ color: '#22c55e' }}></i>
+                <span style={{ color: '#86efac' }}>Registration successful! Redirecting...</span>
+              </div>
+            )}
 
-          <div className="form-footer animated-footer">
-            <a href="/login" onClick={(e) => { e.preventDefault(); navigate('/login'); }}>
-              <i className="fas fa-arrow-left footer-icon"></i>
-              <span className="footer-text">Back to Login</span>
-            </a>
-          </div>
+            <form onSubmit={handleSubmit} className="fullpage-form">
+              <div className="fullpage-input-group">
+                <i className="fas fa-user"></i>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Full Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+                <div className="fullpage-input-line"></div>
+              </div>
 
-          <div className="login-footer">
-            <div className="footer-line"></div>
-            <span>Powered by AI</span>
-            <div className="footer-line"></div>
+              <div className="fullpage-input-group">
+                <i className="fas fa-envelope"></i>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+                <div className="fullpage-input-line"></div>
+              </div>
+
+              <div className="fullpage-input-group">
+                <i className="fas fa-lock"></i>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+                <div className="fullpage-input-line"></div>
+              </div>
+
+              <div className="fullpage-input-group">
+                <i className="fas fa-phone"></i>
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Phone Number (Optional)"
+                  value={formData.phone}
+                  onChange={handleChange}
+                />
+                <div className="fullpage-input-line"></div>
+              </div>
+
+              <div className="fullpage-input-group">
+                <i className="fas fa-briefcase"></i>
+                <select
+                  name="role"
+                  value={formData.role}
+                  onChange={handleChange}
+                  required
+                  style={{
+                    width: '100%',
+                    padding: '20px 20px 20px 55px',
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    border: '2px solid rgba(255, 255, 255, 0.1)',
+                    borderRadius: '18px',
+                    color: '#fff',
+                    fontSize: '1.05rem',
+                    outline: 'none',
+                    cursor: 'pointer',
+                    transition: 'all 0.4s ease'
+                  }}
+                >
+                  <option value="employee" style={{ background: '#0a0a1a' }}>Employee</option>
+                  <option value="manager" style={{ background: '#0a0a1a' }}>Manager</option>
+                  <option value="admin" style={{ background: '#0a0a1a' }}>Admin</option>
+                </select>
+                <div className="fullpage-input-line"></div>
+              </div>
+
+              <div className="fullpage-input-group">
+                <i className="fas fa-building"></i>
+                <input
+                  type="text"
+                  name="department"
+                  placeholder="Department"
+                  value={formData.department}
+                  onChange={handleChange}
+                />
+                <div className="fullpage-input-line"></div>
+              </div>
+
+              <button type="submit" className="fullpage-submit" disabled={loading}>
+                {loading ? (
+                  <span className="fullpage-spinner"></span>
+                ) : (
+                  <>
+                    <i className="fas fa-user-plus"></i>
+                    <span>Create Account</span>
+                  </>
+                )}
+              </button>
+            </form>
+
+            <div className="fullpage-footer-links">
+              <a href="/login" onClick={(e) => { e.preventDefault(); navigate('/login'); }}>
+                <i className="fas fa-arrow-left"></i>
+                Back to Login
+              </a>
+            </div>
+
+            <div className="fullpage-powered">
+              <div className="fullpage-powered-line"></div>
+              <span>Powered by AI</span>
+              <div className="fullpage-powered-line"></div>
+            </div>
           </div>
         </div>
       </div>

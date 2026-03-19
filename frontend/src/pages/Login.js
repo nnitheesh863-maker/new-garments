@@ -19,7 +19,7 @@ const Login = () => {
   const { i18n } = useTranslation();
 
   const glowColors = [
-    '#667eea', '#764ba2', '#f093fb', '#4facfe', 
+    '#667eea', '#764ba2', '#f093fb', '#4facfe',
     '#43e97b', '#fa709a', '#a18cd1', '#fbc2eb'
   ];
 
@@ -33,15 +33,16 @@ const Login = () => {
       '#43e97b', '#fa709a', '#a18cd1', '#fbc2eb',
       '#667eea', '#764ba2', '#f093fb', '#4facfe'
     ];
-    
+
     const newParticles = [];
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 80; i++) {
       newParticles.push({
         id: i,
         left: Math.random() * 100,
-        delay: Math.random() * 8,
-        size: Math.random() * 20 + 5,
-        duration: Math.random() * 15 + 15,
+        top: Math.random() * 100,
+        delay: Math.random() * 10,
+        size: Math.random() * 25 + 5,
+        duration: Math.random() * 20 + 20,
         color: colors[Math.floor(Math.random() * colors.length)],
         speed: Math.random() * 2 + 1
       });
@@ -73,154 +74,168 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <div className="animated-gradient-bg">
+    <div className="fullpage-login-container">
+      <div className="fullpage-bg-effects">
         <div className="gradient-sphere gradient-sphere-1"></div>
         <div className="gradient-sphere gradient-sphere-2"></div>
         <div className="gradient-sphere gradient-sphere-3"></div>
+        <div className="gradient-sphere gradient-sphere-4"></div>
+        <div className="gradient-sphere gradient-sphere-5"></div>
       </div>
 
-      <div className="animated-bg">
-        <div className="gradient-overlay"></div>
+      <div className="fullpage-particles">
         {particles.map(p => (
           <div
             key={p.id}
-            className="particle"
+            className="fullpage-particle"
             style={{
               left: `${p.left}%`,
+              top: `${p.top}%`,
               animationDelay: `${p.delay}s`,
               width: `${p.size}px`,
               height: `${p.size}px`,
               animationDuration: `${p.duration}s`,
               background: p.color,
-              boxShadow: `0 0 ${p.size}px ${p.color}`
+              boxShadow: `0 0 ${p.size * 2}px ${p.color}, 0 0 ${p.size * 4}px ${p.color}`
             }}
           ></div>
         ))}
       </div>
 
-      <div className="floating-shapes">
-        <div className="shape shape-1 animated-shape"></div>
-        <div className="shape shape-2 animated-shape"></div>
-        <div className="shape shape-3 animated-shape"></div>
-        <div className="shape shape-4 animated-shape"></div>
-        <div className="shape shape-5 animated-shape"></div>
-        <div className="shape shape-6 animated-shape"></div>
+      <div className="fullpage-shapes">
+        <div className="fullpage-shape shape-1"></div>
+        <div className="fullpage-shape shape-2"></div>
+        <div className="fullpage-shape shape-3"></div>
+        <div className="fullpage-shape shape-4"></div>
+        <div className="fullpage-shape shape-5"></div>
+        <div className="fullpage-shape shape-6"></div>
+        <div className="fullpage-shape shape-7"></div>
+        <div className="fullpage-shape shape-8"></div>
       </div>
 
-      <div className="login-card">
-        <div 
-          className="glow-effect animated-glow"
-          style={{
-            background: `linear-gradient(135deg, ${glowColors[glowColor]}, ${glowColors[(glowColor + 1) % glowColors.length]}, ${glowColors[(glowColor + 2) % glowColors.length]})`
-          }}
-        ></div>
-        <div className="login-inner">
-          <div className="login-header">
-            <div className="logo-container">
-              <div className="logo-icon animated-logo">
-                <i className="fas fa-tshirt"></i>
+      <div className="fullpage-content">
+        <div className="fullpage-login-card">
+          <div
+            className="fullpage-glow-border"
+            style={{
+              background: `linear-gradient(135deg, ${glowColors[glowColor]}, ${glowColors[(glowColor + 1) % glowColors.length]}, ${glowColors[(glowColor + 2) % glowColors.length]}, ${glowColors[(glowColor + 3) % glowColors.length]})`
+            }}
+          ></div>
+
+          <div className="fullpage-card-content">
+            <div className="fullpage-header">
+              <div className="fullpage-logo">
+                <div className="fullpage-logo-icon">
+                  <i className="fas fa-tshirt"></i>
+                </div>
+                <div className="fullpage-logo-ring"></div>
+                <div className="fullpage-logo-glow"></div>
               </div>
-              <div className="logo-glow animated-logo-glow"></div>
-              <div className="logo-ring"></div>
+
+              <div className="fullpage-title-section">
+                <h1 className="fullpage-title">
+                  <span className="fullpage-title-line">Garment Optimization</span>
+                  <span className="fullpage-title-line accent">System</span>
+                </h1>
+                <p className="fullpage-subtitle">
+                  <span>AI</span>
+                  <span className="dot">•</span>
+                  <span>Powered</span>
+                  <span className="dot">•</span>
+                  <span>Production</span>
+                </p>
+              </div>
             </div>
-            <h1 className="app-title animated-title">
-              <span className="title-word">Garment</span>
-              <span className="title-word">Optimization</span>
-              <span className="title-word">System</span>
-            </h1>
-            <p className="app-subtitle animated-subtitle">
-              <span className="subtitle-word">AI</span>
-              <span className="subtitle-word">Powered</span>
-              <span className="subtitle-word">Production</span>
-            </p>
-          </div>
 
-          <div className="language-switcher animated-switcher">
-            <button
-              className={`lang-btn ${i18n.language === 'en' ? 'active' : ''}`}
-              onClick={() => changeLanguage('en')}
-            >
-              <span>English</span>
-            </button>
-            <button
-              className={`lang-btn ${i18n.language === 'ta' ? 'active' : ''}`}
-              onClick={() => changeLanguage('ta')}
-            >
-              <span>தமிழ்</span>
-            </button>
-            <button
-              className={`lang-btn ${i18n.language === 'hi' ? 'active' : ''}`}
-              onClick={() => changeLanguage('hi')}
-            >
-              <span>हिंदी</span>
-            </button>
-          </div>
-
-          {error && (
-            <div className="error-message animated-error">
-              <i className="fas fa-exclamation-circle"></i>
-              <span>{error}</span>
+            <div className="fullpage-language">
+              <button
+                className={`fullpage-lang ${i18n.language === 'en' ? 'active' : ''}`}
+                onClick={() => changeLanguage('en')}
+              >
+                EN
+              </button>
+              <button
+                className={`fullpage-lang ${i18n.language === 'ta' ? 'active' : ''}`}
+                onClick={() => changeLanguage('ta')}
+              >
+                தமிழ்
+              </button>
+              <button
+                className={`fullpage-lang ${i18n.language === 'hi' ? 'active' : ''}`}
+                onClick={() => changeLanguage('hi')}
+              >
+                हिंदी
+              </button>
             </div>
-          )}
 
-          <form onSubmit={handleSubmit} className="login-form">
-            <div className="input-group animated-input">
-              <i className="fas fa-envelope icon-pulse"></i>
-              <input
-                type="email"
-                placeholder="Email Address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="glow-input"
-              />
-              <div className="input-glow"></div>
-              <div className="input-border-anim"></div>
+            {error && (
+              <div className="fullpage-error">
+                <i className="fas fa-exclamation-circle"></i>
+                <span>{error}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="fullpage-form">
+              <div className="fullpage-input-group">
+                <i className="fas fa-envelope"></i>
+                <input
+                  type="email"
+                  placeholder="Email Address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <div className="fullpage-input-line"></div>
+              </div>
+
+              <div className="fullpage-input-group">
+                <i className="fas fa-lock"></i>
+                <input
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <div className="fullpage-input-line"></div>
+              </div>
+
+              <button type="submit" className="fullpage-submit" disabled={loading}>
+                {loading ? (
+                  <span className="fullpage-spinner"></span>
+                ) : (
+                  <>
+                    <i className="fas fa-sign-in-alt"></i>
+                    <span>Login</span>
+                  </>
+                )}
+              </button>
+            </form>
+
+            <div className="fullpage-footer-links">
+              <a href="/register" onClick={(e) => { e.preventDefault(); navigate('/register'); }}>
+                <i className="fas fa-user-plus"></i>
+                Create New Account
+              </a>
             </div>
-            <div className="input-group animated-input" style={{animationDelay: '0.1s'}}>
-              <i className="fas fa-lock icon-pulse"></i>
-              <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="glow-input"
-              />
-              <div className="input-glow"></div>
-              <div className="input-border-anim"></div>
+
+            <div className="fullpage-demo">
+              <div className="fullpage-demo-badge">
+                <i className="fas fa-rocket"></i>
+                Demo Account
+              </div>
+              <div className="fullpage-demo-credentials">
+                <span>emp@test.com</span>
+                <span className="separator">|</span>
+                <span>password</span>
+              </div>
             </div>
-            <button type="submit" className="login-btn animated-btn" disabled={loading}>
-              {loading ? (
-                <span className="loading-spinner"></span>
-              ) : (
-                <>
-                  <i className="fas fa-sign-in-alt btn-icon"></i>
-                  <span className="btn-text">Login</span>
-                  <div className="btn-glow"></div>
-                </>
-              )}
-            </button>
-          </form>
 
-          <div className="form-footer animated-footer">
-            <a href="/register" onClick={(e) => { e.preventDefault(); navigate('/register'); }}>
-              <span className="footer-text">Create New Account</span>
-              <i className="fas fa-arrow-right footer-icon"></i>
-            </a>
-          </div>
-
-          <div className="demo-credentials animated-credentials">
-            <div className="credentials-glow"></div>
-            <p><strong>Demo Login:</strong></p>
-            <p className="credential-text">emp@test.com / password</p>
-          </div>
-
-          <div className="login-footer">
-            <div className="footer-line"></div>
-            <span>Powered by AI</span>
-            <div className="footer-line"></div>
+            <div className="fullpage-powered">
+              <div className="fullpage-powered-line"></div>
+              <span>Powered by AI</span>
+              <div className="fullpage-powered-line"></div>
+            </div>
           </div>
         </div>
       </div>
