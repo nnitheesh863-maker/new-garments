@@ -35,16 +35,14 @@ const Login = () => {
     ];
 
     const newParticles = [];
-    for (let i = 0; i < 80; i++) {
+    for (let i = 0; i < 100; i++) {
       newParticles.push({
         id: i,
         left: Math.random() * 100,
-        top: Math.random() * 100,
-        delay: Math.random() * 10,
-        size: Math.random() * 25 + 5,
-        duration: Math.random() * 20 + 20,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        speed: Math.random() * 2 + 1
+        delay: Math.random() * 15,
+        size: Math.random() * 20 + 3,
+        duration: Math.random() * 25 + 25,
+        color: colors[Math.floor(Math.random() * colors.length)]
       });
     }
     setParticles(newParticles);
@@ -74,170 +72,166 @@ const Login = () => {
   };
 
   return (
-    <div className="fullpage-login-container">
-      <div className="fullpage-bg-effects">
-        <div className="gradient-sphere gradient-sphere-1"></div>
-        <div className="gradient-sphere gradient-sphere-2"></div>
-        <div className="gradient-sphere gradient-sphere-3"></div>
-        <div className="gradient-sphere gradient-sphere-4"></div>
-        <div className="gradient-sphere gradient-sphere-5"></div>
+    <div className="landscape-login-container">
+      <div className="landscape-bg-effects">
+        <div className="landscape-gradient gradient-1"></div>
+        <div className="landscape-gradient gradient-2"></div>
+        <div className="landscape-gradient gradient-3"></div>
+        <div className="landscape-gradient gradient-4"></div>
+        <div className="landscape-gradient gradient-5"></div>
       </div>
 
-      <div className="fullpage-particles">
+      <div className="landscape-particles">
         {particles.map(p => (
           <div
             key={p.id}
-            className="fullpage-particle"
+            className="landscape-particle"
             style={{
               left: `${p.left}%`,
-              top: `${p.top}%`,
               animationDelay: `${p.delay}s`,
               width: `${p.size}px`,
               height: `${p.size}px`,
               animationDuration: `${p.duration}s`,
               background: p.color,
-              boxShadow: `0 0 ${p.size * 2}px ${p.color}, 0 0 ${p.size * 4}px ${p.color}`
+              boxShadow: `0 0 ${p.size * 2}px ${p.color}`
             }}
           ></div>
         ))}
       </div>
 
-      <div className="fullpage-shapes">
-        <div className="fullpage-shape shape-1"></div>
-        <div className="fullpage-shape shape-2"></div>
-        <div className="fullpage-shape shape-3"></div>
-        <div className="fullpage-shape shape-4"></div>
-        <div className="fullpage-shape shape-5"></div>
-        <div className="fullpage-shape shape-6"></div>
-        <div className="fullpage-shape shape-7"></div>
-        <div className="fullpage-shape shape-8"></div>
-      </div>
-
-      <div className="fullpage-content">
-        <div className="fullpage-login-card">
-          <div
-            className="fullpage-glow-border"
-            style={{
-              background: `linear-gradient(135deg, ${glowColors[glowColor]}, ${glowColors[(glowColor + 1) % glowColors.length]}, ${glowColors[(glowColor + 2) % glowColors.length]}, ${glowColors[(glowColor + 3) % glowColors.length]})`
-            }}
-          ></div>
-
-          <div className="fullpage-card-content">
-            <div className="fullpage-header">
-              <div className="fullpage-logo">
-                <div className="fullpage-logo-icon">
-                  <i className="fas fa-tshirt"></i>
-                </div>
-                <div className="fullpage-logo-ring"></div>
-                <div className="fullpage-logo-glow"></div>
-              </div>
-
-              <div className="fullpage-title-section">
-                <h1 className="fullpage-title">
-                  <span className="fullpage-title-line">Garment Optimization</span>
-                  <span className="fullpage-title-line accent">System</span>
-                </h1>
-                <p className="fullpage-subtitle">
-                  <span>AI</span>
-                  <span className="dot">•</span>
-                  <span>Powered</span>
-                  <span className="dot">•</span>
-                  <span>Production</span>
-                </p>
-              </div>
+      <div className="landscape-content">
+        <div className="landscape-left">
+          <div className="landscape-brand">
+            <div className="landscape-logo">
+              <i className="fas fa-tshirt"></i>
+              <div className="landscape-logo-ring"></div>
+              <div className="landscape-logo-glow"></div>
             </div>
-
-            <div className="fullpage-language">
-              <button
-                className={`fullpage-lang ${i18n.language === 'en' ? 'active' : ''}`}
-                onClick={() => changeLanguage('en')}
-              >
-                EN
-              </button>
-              <button
-                className={`fullpage-lang ${i18n.language === 'ta' ? 'active' : ''}`}
-                onClick={() => changeLanguage('ta')}
-              >
-                தமிழ்
-              </button>
-              <button
-                className={`fullpage-lang ${i18n.language === 'hi' ? 'active' : ''}`}
-                onClick={() => changeLanguage('hi')}
-              >
-                हिंदी
-              </button>
-            </div>
-
-            {error && (
-              <div className="fullpage-error">
-                <i className="fas fa-exclamation-circle"></i>
-                <span>{error}</span>
+            <h1 className="landscape-title">
+              Garment<br/>
+              Optimization<br/>
+              <span>System</span>
+            </h1>
+            <p className="landscape-tagline">
+              AI-Powered Production Management Platform
+            </p>
+            <div className="landscape-features">
+              <div className="landscape-feature">
+                <i className="fas fa-chart-line"></i>
+                <span>Analytics</span>
               </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="fullpage-form">
-              <div className="fullpage-input-group">
-                <i className="fas fa-envelope"></i>
-                <input
-                  type="email"
-                  placeholder="Email Address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-                <div className="fullpage-input-line"></div>
+              <div className="landscape-feature">
+                <i className="fas fa-robot"></i>
+                <span>AI Assistant</span>
               </div>
-
-              <div className="fullpage-input-group">
-                <i className="fas fa-lock"></i>
-                <input
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-                <div className="fullpage-input-line"></div>
+              <div className="landscape-feature">
+                <i className="fas fa-video"></i>
+                <span>Training</span>
               </div>
-
-              <button type="submit" className="fullpage-submit" disabled={loading}>
-                {loading ? (
-                  <span className="fullpage-spinner"></span>
-                ) : (
-                  <>
-                    <i className="fas fa-sign-in-alt"></i>
-                    <span>Login</span>
-                  </>
-                )}
-              </button>
-            </form>
-
-            <div className="fullpage-footer-links">
-              <a href="/register" onClick={(e) => { e.preventDefault(); navigate('/register'); }}>
-                <i className="fas fa-user-plus"></i>
-                Create New Account
-              </a>
-            </div>
-
-            <div className="fullpage-demo">
-              <div className="fullpage-demo-badge">
-                <i className="fas fa-rocket"></i>
-                Demo Account
+              <div className="landscape-feature">
+                <i className="fas fa-comments"></i>
+                <span>Team Chat</span>
               </div>
-              <div className="fullpage-demo-credentials">
-                <span>emp@test.com</span>
-                <span className="separator">|</span>
-                <span>password</span>
-              </div>
-            </div>
-
-            <div className="fullpage-powered">
-              <div className="fullpage-powered-line"></div>
-              <span>Powered by AI</span>
-              <div className="fullpage-powered-line"></div>
             </div>
           </div>
         </div>
+
+        <div className="landscape-right">
+          <div className="landscape-card">
+            <div 
+              className="landscape-card-border"
+              style={{
+                background: `linear-gradient(135deg, ${glowColors[glowColor]}, ${glowColors[(glowColor + 1) % glowColors.length]}, ${glowColors[(glowColor + 2) % glowColors.length]})`
+              }}
+            ></div>
+            
+            <div className="landscape-card-content">
+              <div className="landscape-card-header">
+                <h2>Welcome Back</h2>
+                <p>Sign in to your account</p>
+              </div>
+
+              <div className="landscape-lang">
+                <button
+                  className={`landscape-lang-btn ${i18n.language === 'en' ? 'active' : ''}`}
+                  onClick={() => changeLanguage('en')}
+                >EN</button>
+                <button
+                  className={`landscape-lang-btn ${i18n.language === 'ta' ? 'active' : ''}`}
+                  onClick={() => changeLanguage('ta')}
+                >தமிழ்</button>
+                <button
+                  className={`landscape-lang-btn ${i18n.language === 'hi' ? 'active' : ''}`}
+                  onClick={() => changeLanguage('hi')}
+                >हिंदी</button>
+              </div>
+
+              {error && (
+                <div className="landscape-error">
+                  <i className="fas fa-exclamation-circle"></i>
+                  <span>{error}</span>
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} className="landscape-form">
+                <div className="landscape-input">
+                  <i className="fas fa-envelope"></i>
+                  <input
+                    type="email"
+                    placeholder="Email Address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className="landscape-input">
+                  <i className="fas fa-lock"></i>
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <button type="submit" className="landscape-submit" disabled={loading}>
+                  {loading ? (
+                    <span className="landscape-spinner"></span>
+                  ) : (
+                    <>
+                      <i className="fas fa-sign-in-alt"></i>
+                      <span>Login</span>
+                    </>
+                  )}
+                </button>
+              </form>
+
+              <div className="landscape-links">
+                <a href="/register" onClick={(e) => { e.preventDefault(); navigate('/register'); }}>
+                  <i className="fas fa-user-plus"></i>
+                  Create Account
+                </a>
+              </div>
+
+              <div className="landscape-demo">
+                <div className="landscape-demo-badge">
+                  <i className="fas fa-rocket"></i>
+                  Demo: emp@test.com / password
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="landscape-footer">
+        <span>Powered by AI</span>
+        <span>•</span>
+        <span>Garment Optimization System</span>
+        <span>•</span>
+        <span>2024</span>
       </div>
     </div>
   );

@@ -38,16 +38,14 @@ const Register = () => {
     ];
 
     const newParticles = [];
-    for (let i = 0; i < 80; i++) {
+    for (let i = 0; i < 100; i++) {
       newParticles.push({
         id: i,
         left: Math.random() * 100,
-        top: Math.random() * 100,
-        delay: Math.random() * 10,
-        size: Math.random() * 25 + 5,
-        duration: Math.random() * 20 + 20,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        speed: Math.random() * 2 + 1
+        delay: Math.random() * 15,
+        size: Math.random() * 20 + 3,
+        duration: Math.random() * 25 + 25,
+        color: colors[Math.floor(Math.random() * colors.length)]
       });
     }
     setParticles(newParticles);
@@ -76,210 +74,211 @@ const Register = () => {
   };
 
   return (
-    <div className="fullpage-login-container">
-      <div className="fullpage-bg-effects">
-        <div className="gradient-sphere gradient-sphere-1"></div>
-        <div className="gradient-sphere gradient-sphere-2"></div>
-        <div className="gradient-sphere gradient-sphere-3"></div>
-        <div className="gradient-sphere gradient-sphere-4"></div>
-        <div className="gradient-sphere gradient-sphere-5"></div>
+    <div className="landscape-login-container">
+      <div className="landscape-bg-effects">
+        <div className="landscape-gradient gradient-1"></div>
+        <div className="landscape-gradient gradient-2"></div>
+        <div className="landscape-gradient gradient-3"></div>
+        <div className="landscape-gradient gradient-4"></div>
+        <div className="landscape-gradient gradient-5"></div>
       </div>
 
-      <div className="fullpage-particles">
+      <div className="landscape-particles">
         {particles.map(p => (
           <div
             key={p.id}
-            className="fullpage-particle"
+            className="landscape-particle"
             style={{
               left: `${p.left}%`,
-              top: `${p.top}%`,
               animationDelay: `${p.delay}s`,
               width: `${p.size}px`,
               height: `${p.size}px`,
               animationDuration: `${p.duration}s`,
               background: p.color,
-              boxShadow: `0 0 ${p.size * 2}px ${p.color}, 0 0 ${p.size * 4}px ${p.color}`
+              boxShadow: `0 0 ${p.size * 2}px ${p.color}`
             }}
           ></div>
         ))}
       </div>
 
-      <div className="fullpage-shapes">
-        <div className="fullpage-shape shape-1"></div>
-        <div className="fullpage-shape shape-2"></div>
-        <div className="fullpage-shape shape-3"></div>
-        <div className="fullpage-shape shape-4"></div>
-        <div className="fullpage-shape shape-5"></div>
-        <div className="fullpage-shape shape-6"></div>
-        <div className="fullpage-shape shape-7"></div>
-        <div className="fullpage-shape shape-8"></div>
-      </div>
-
-      <div className="fullpage-content">
-        <div className="fullpage-login-card">
-          <div
-            className="fullpage-glow-border"
-            style={{
-              background: `linear-gradient(135deg, ${glowColors[glowColor]}, ${glowColors[(glowColor + 1) % glowColors.length]}, ${glowColors[(glowColor + 2) % glowColors.length]}, ${glowColors[(glowColor + 3) % glowColors.length]})`
-            }}
-          ></div>
-
-          <div className="fullpage-card-content">
-            <div className="fullpage-header">
-              <div className="fullpage-logo">
-                <div className="fullpage-logo-icon">
-                  <i className="fas fa-user-plus"></i>
-                </div>
-                <div className="fullpage-logo-ring"></div>
-                <div className="fullpage-logo-glow"></div>
-              </div>
-
-              <div className="fullpage-title-section">
-                <h1 className="fullpage-title">
-                  <span className="fullpage-title-line">Create Your</span>
-                  <span className="fullpage-title-line accent">Account</span>
-                </h1>
-                <p className="fullpage-subtitle">
-                  <span>Join</span>
-                  <span className="dot">•</span>
-                  <span>the</span>
-                  <span className="dot">•</span>
-                  <span>System</span>
-                </p>
-              </div>
+      <div className="landscape-content">
+        <div className="landscape-left">
+          <div className="landscape-brand">
+            <div className="landscape-logo">
+              <i className="fas fa-user-plus"></i>
+              <div className="landscape-logo-ring"></div>
+              <div className="landscape-logo-glow"></div>
             </div>
-
-            {error && (
-              <div className="fullpage-error">
-                <i className="fas fa-exclamation-circle"></i>
-                <span>{error}</span>
+            <h1 className="landscape-title">
+              Join<br/>
+              Our<br/>
+              <span>Team</span>
+            </h1>
+            <p className="landscape-tagline">
+              Create your account and start managing production
+            </p>
+            <div className="landscape-features">
+              <div className="landscape-feature">
+                <i className="fas fa-chart-line"></i>
+                <span>Analytics</span>
               </div>
-            )}
-
-            {success && (
-              <div className="fullpage-error" style={{ background: 'rgba(34, 197, 94, 0.15)', borderColor: 'rgba(34, 197, 94, 0.4)' }}>
-                <i className="fas fa-check-circle" style={{ color: '#22c55e' }}></i>
-                <span style={{ color: '#86efac' }}>Registration successful! Redirecting...</span>
+              <div className="landscape-feature">
+                <i className="fas fa-robot"></i>
+                <span>AI Assistant</span>
               </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="fullpage-form">
-              <div className="fullpage-input-group">
-                <i className="fas fa-user"></i>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Full Name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                />
-                <div className="fullpage-input-line"></div>
+              <div className="landscape-feature">
+                <i className="fas fa-video"></i>
+                <span>Training</span>
               </div>
-
-              <div className="fullpage-input-group">
-                <i className="fas fa-envelope"></i>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email Address"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-                <div className="fullpage-input-line"></div>
+              <div className="landscape-feature">
+                <i className="fas fa-comments"></i>
+                <span>Team Chat</span>
               </div>
-
-              <div className="fullpage-input-group">
-                <i className="fas fa-lock"></i>
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                />
-                <div className="fullpage-input-line"></div>
-              </div>
-
-              <div className="fullpage-input-group">
-                <i className="fas fa-phone"></i>
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Phone Number (Optional)"
-                  value={formData.phone}
-                  onChange={handleChange}
-                />
-                <div className="fullpage-input-line"></div>
-              </div>
-
-              <div className="fullpage-input-group">
-                <i className="fas fa-briefcase"></i>
-                <select
-                  name="role"
-                  value={formData.role}
-                  onChange={handleChange}
-                  required
-                  style={{
-                    width: '100%',
-                    padding: '20px 20px 20px 55px',
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '2px solid rgba(255, 255, 255, 0.1)',
-                    borderRadius: '18px',
-                    color: '#fff',
-                    fontSize: '1.05rem',
-                    outline: 'none',
-                    cursor: 'pointer',
-                    transition: 'all 0.4s ease'
-                  }}
-                >
-                  <option value="employee" style={{ background: '#0a0a1a' }}>Employee</option>
-                  <option value="manager" style={{ background: '#0a0a1a' }}>Manager</option>
-                  <option value="admin" style={{ background: '#0a0a1a' }}>Admin</option>
-                </select>
-                <div className="fullpage-input-line"></div>
-              </div>
-
-              <div className="fullpage-input-group">
-                <i className="fas fa-building"></i>
-                <input
-                  type="text"
-                  name="department"
-                  placeholder="Department"
-                  value={formData.department}
-                  onChange={handleChange}
-                />
-                <div className="fullpage-input-line"></div>
-              </div>
-
-              <button type="submit" className="fullpage-submit" disabled={loading}>
-                {loading ? (
-                  <span className="fullpage-spinner"></span>
-                ) : (
-                  <>
-                    <i className="fas fa-user-plus"></i>
-                    <span>Create Account</span>
-                  </>
-                )}
-              </button>
-            </form>
-
-            <div className="fullpage-footer-links">
-              <a href="/login" onClick={(e) => { e.preventDefault(); navigate('/login'); }}>
-                <i className="fas fa-arrow-left"></i>
-                Back to Login
-              </a>
-            </div>
-
-            <div className="fullpage-powered">
-              <div className="fullpage-powered-line"></div>
-              <span>Powered by AI</span>
-              <div className="fullpage-powered-line"></div>
             </div>
           </div>
         </div>
+
+        <div className="landscape-right">
+          <div className="landscape-card">
+            <div 
+              className="landscape-card-border"
+              style={{
+                background: `linear-gradient(135deg, ${glowColors[glowColor]}, ${glowColors[(glowColor + 1) % glowColors.length]}, ${glowColors[(glowColor + 2) % glowColors.length]})`
+              }}
+            ></div>
+            
+            <div className="landscape-card-content">
+              <div className="landscape-card-header">
+                <h2>Create Account</h2>
+                <p>Sign up to get started</p>
+              </div>
+
+              {error && (
+                <div className="landscape-error">
+                  <i className="fas fa-exclamation-circle"></i>
+                  <span>{error}</span>
+                </div>
+              )}
+
+              {success && (
+                <div className="landscape-error" style={{ background: 'rgba(34, 197, 94, 0.15)', borderColor: 'rgba(34, 197, 94, 0.4)' }}>
+                  <i className="fas fa-check-circle" style={{ color: '#22c55e' }}></i>
+                  <span style={{ color: '#86efac' }}>Registration successful! Redirecting...</span>
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} className="landscape-form">
+                <div className="landscape-input">
+                  <i className="fas fa-user"></i>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Full Name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="landscape-input">
+                  <i className="fas fa-envelope"></i>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email Address"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="landscape-input">
+                  <i className="fas fa-lock"></i>
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="landscape-input">
+                  <i className="fas fa-phone"></i>
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Phone Number"
+                    value={formData.phone}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="landscape-input">
+                  <i className="fas fa-briefcase"></i>
+                  <select
+                    name="role"
+                    value={formData.role}
+                    onChange={handleChange}
+                    required
+                    style={{
+                      width: '100%',
+                      padding: '18px 18px 18px 50px',
+                      background: 'rgba(255, 255, 255, 0.05)',
+                      border: '2px solid rgba(255, 255, 255, 0.1)',
+                      borderRadius: '14px',
+                      color: '#fff',
+                      fontSize: '1rem',
+                      outline: 'none'
+                    }}
+                  >
+                    <option value="employee" style={{ background: '#0a0a1a' }}>Employee</option>
+                    <option value="manager" style={{ background: '#0a0a1a' }}>Manager</option>
+                    <option value="admin" style={{ background: '#0a0a1a' }}>Admin</option>
+                  </select>
+                </div>
+
+                <div className="landscape-input">
+                  <i className="fas fa-building"></i>
+                  <input
+                    type="text"
+                    name="department"
+                    placeholder="Department"
+                    value={formData.department}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <button type="submit" className="landscape-submit" disabled={loading}>
+                  {loading ? (
+                    <span className="landscape-spinner"></span>
+                  ) : (
+                    <>
+                      <i className="fas fa-user-plus"></i>
+                      <span>Create Account</span>
+                    </>
+                  )}
+                </button>
+              </form>
+
+              <div className="landscape-links">
+                <a href="/login" onClick={(e) => { e.preventDefault(); navigate('/login'); }}>
+                  <i className="fas fa-arrow-left"></i>
+                  Back to Login
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="landscape-footer">
+        <span>Powered by AI</span>
+        <span>•</span>
+        <span>Garment Optimization System</span>
+        <span>•</span>
+        <span>2024</span>
       </div>
     </div>
   );
