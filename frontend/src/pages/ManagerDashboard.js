@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import TeamOverview from '../components/manager/TeamOverview';
 import Production from '../components/manager/Production';
@@ -16,7 +16,6 @@ import ExportData from '../components/manager/ExportData';
 
 const ManagerDashboard = () => {
   const { t } = useTranslation();
-  const location = useLocation();
   const [stats, setStats] = useState({
     teamSize: 24,
     todayOutput: 1250,
@@ -25,12 +24,10 @@ const ManagerDashboard = () => {
   });
 
   useEffect(() => {
-    // Load stats
     loadStats();
   }, []);
 
   const loadStats = async () => {
-    // Mock stats - in real app, fetch from API
     setStats({
       teamSize: 24,
       todayOutput: 1250,
@@ -59,96 +56,353 @@ const ManagerDashboard = () => {
 };
 
 const ManagerHome = ({ stats }) => {
+  const [aiPrediction, setAiPrediction] = useState({
+    target: 1000,
+    completed: 600,
+    timeSpent: 5,
+    workers: 10
+  });
+  const [predictionResult, setPredictionResult] = useState(null);
+  const [animateBrain, setAnimateBrain] = useState(false);
+
+  useEffect(() => {
+    calculateDelay();
+  }, []);
+
+  const calculateEfficiency = (target, completed) => {
+    return ((completed / target) * 100).toFixed(1);
+  };
+
+  const getDelayLevel = (efficiency) => {
+    if (efficiency < 70) return { level: 'HIGH', color: '#ef4444', icon: 'exclamation-triangle' };
+    if (efficiency < 90) return { level: 'MEDIUM', color: '#f59e0b', icon: 'clock' };
+    return { level: 'LOW', color: '#10b981', icon: 'check-circle' };
+  };
+
+  const getSuggestion = (efficiency, workers) => {
+    if (efficiency < 70) {
+      const extraWorkers = Math.ceil(workers * 0.3);
+      return `⚠️ Critical: Add ${extraWorkers} workers or extend shift by 2 hours to meet deadline`;
+    }
+    if (efficiency < 90) {
+      const extraWorkers = Math.ceil(workers * 0.15);
+      return `📊 Warning: Consider adding ${extraWorkers} workers to improve pace`;
+    }
+    return `✅ Excellent: On track! Current efficiency is optimal`;
+  };
+
+  const calculateDelay = () => {
+    const { target, completed, timeSpent, workers } = aiPrediction;
+    const efficiency = calculateEfficiency(target, completed);
+    const delayInfo = getDelayLevel(parseFloat(efficiency));
+    const suggestion = getSuggestion(parseFloat(efficiency), workers);
+    const remainingWork = target - completed;
+    const estimatedHoursNeeded = (remainingWork / (completed / timeSpent)).toFixed(1);
+
+    setPredictionResult({
+      efficiency,
+      delayInfo,
+      suggestion,
+      remainingWork,
+      estimatedHoursNeeded,
+      throughput: (completed / timeSpent).toFixed(1),
+      perWorkerOutput: (completed / timeSpent / workers).toFixed(1)
+    });
+    setAnimateBrain(true);
+    setTimeout(() => setAnimateBrain(false), 1000);
+  };
+
+  const handleInputChange = (field, value) => {
+    setAiPrediction(prev => ({ ...prev, [field]: parseFloat(value) || 0 }));
+  };
+
   return (
     <div className="fade-in">
       <h2 className="mb-4">
-        <i className="fas fa-tachometer-alt me-2"></i>
+        <i className="fas fa-robot me-2"></i>
         Manager Dashboard
       </h2>
-      
+
       {/* Stats Cards with Animation */}
       <div className="row mb-4">
-        <div className="col-md-3 slide-in-up stagger-1">
-          <div className="stat-card">
-            <div className="d-flex justify-content-between align-items-center">
-              <div>
-                <h3>{stats.teamSize}</h3>
-                <p>Team Members</p>
+        <div className="col-md-3">
+          <div className="stat-card animated-card" style={{ animationDelay: '0s' }}>
+            <div className="stat-icon">
+              <i className="fas fa-users"></i>
+            </div>
+            <div className="stat-content">
+              <h3>{stats.teamSize}</h3>
+              <p>Team Members</p>
+            </div>
+            <div className="stat-glow"></div>
+          </div>
+        </div>
+        <div className="col-md-3">
+          <div className="stat-card animated-card gradient-1" style={{ animationDelay: '0.1s' }}>
+            <div className="stat-icon">
+              <i className="fas fa-boxes"></i>
+            </div>
+            <div className="stat-content">
+              <h3>{stats.todayOutput}</h3>
+              <p>Today's Output</p>
+            </div>
+            <div className="stat-glow"></div>
+          </div>
+        </div>
+        <div className="col-md-3">
+          <div className="stat-card animated-card gradient-2" style={{ animationDelay: '0.2s' }}>
+            <div className="stat-icon">
+              <i className="fas fa-chart-line"></i>
+            </div>
+            <div className="stat-content">
+              <h3>{stats.efficiency}%</h3>
+              <p>Efficiency</p>
+            </div>
+            <div className="stat-glow"></div>
+          </div>
+        </div>
+        <div className="col-md-3">
+          <div className="stat-card animated-card gradient-3" style={{ animationDelay: '0.3s' }}>
+            <div className="stat-icon">
+              <i className="fas fa-bell"></i>
+            </div>
+            <div className="stat-content">
+              <h3>{stats.pendingReports}</h3>
+              <p>Pending Reports</p>
+            </div>
+            <div className="stat-glow"></div>
+          </div>
+        </div>
+      </div>
+
+      {/* AI Delay Prediction Section */}
+      <div className="row mb-4">
+        <div className="col-lg-8">
+          <div className="ai-prediction-card glass-card animated-card" style={{ animationDelay: '0.4s' }}>
+            <div className="ai-header">
+              <div className="ai-brain" className={animateBrain ? 'brain-pulse' : ''}>
+                <i className="fas fa-brain"></i>
               </div>
-              <i className="fas fa-users fa-2x opacity-50"></i>
+              <div>
+                <h3><i className="fas fa-robot me-2"></i>AI Delay Prediction</h3>
+                <p>Real-time production analysis with ML-powered insights</p>
+              </div>
+            </div>
+
+            <div className="ai-content">
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="ai-inputs">
+                    <div className="ai-input-group">
+                      <label><i className="fas fa-bullseye"></i> Target Pieces</label>
+                      <input
+                        type="number"
+                        value={aiPrediction.target}
+                        onChange={(e) => handleInputChange('target', e.target.value)}
+                        onBlur={calculateDelay}
+                      />
+                    </div>
+                    <div className="ai-input-group">
+                      <label><i className="fas fa-check-circle"></i> Completed Pieces</label>
+                      <input
+                        type="number"
+                        value={aiPrediction.completed}
+                        onChange={(e) => handleInputChange('completed', e.target.value)}
+                        onBlur={calculateDelay}
+                      />
+                    </div>
+                    <div className="ai-input-group">
+                      <label><i className="fas fa-clock"></i> Time Spent (Hours)</label>
+                      <input
+                        type="number"
+                        value={aiPrediction.timeSpent}
+                        onChange={(e) => handleInputChange('timeSpent', e.target.value)}
+                        onBlur={calculateDelay}
+                      />
+                    </div>
+                    <div className="ai-input-group">
+                      <label><i className="fas fa-users"></i> Workers</label>
+                      <input
+                        type="number"
+                        value={aiPrediction.workers}
+                        onChange={(e) => handleInputChange('workers', e.target.value)}
+                        onBlur={calculateDelay}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-md-6">
+                  {predictionResult && (
+                    <div className="ai-results">
+                      <div className="efficiency-meter">
+                        <div className="efficiency-ring" style={{
+                          background: `conic-gradient(${predictionResult.delayInfo.color} ${predictionResult.efficiency}%, rgba(255,255,255,0.1) 0%)`
+                        }}>
+                          <div className="efficiency-inner">
+                            <h4>{predictionResult.efficiency}%</h4>
+                            <span>Efficiency</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="delay-badge" style={{ backgroundColor: predictionResult.delayInfo.color }}>
+                        <i className={`fas fa-${predictionResult.delayInfo.icon}`}></i>
+                        <span>Delay Risk: {predictionResult.delayInfo.level}</span>
+                      </div>
+
+                      <div className="ai-metrics">
+                        <div className="ai-metric">
+                          <i className="fas fa-tachometer-alt"></i>
+                          <div>
+                            <strong>{predictionResult.throughput}</strong>
+                            <span>pcs/hour</span>
+                          </div>
+                        </div>
+                        <div className="ai-metric">
+                          <i className="fas fa-user-friends"></i>
+                          <div>
+                            <strong>{predictionResult.perWorkerOutput}</strong>
+                            <span>per worker</span>
+                          </div>
+                        </div>
+                        <div className="ai-metric">
+                          <i className="fas fa-hourglass-half"></i>
+                          <div>
+                            <strong>{predictionResult.estimatedHoursNeeded}h</strong>
+                            <span>remaining</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="ai-suggestion">
+                <i className="fas fa-lightbulb"></i>
+                <p>{predictionResult?.suggestion}</p>
+              </div>
             </div>
           </div>
         </div>
-        <div className="col-md-3 slide-in-up stagger-2">
-          <div className="stat-card" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
-            <div className="d-flex justify-content-between align-items-center">
-              <div>
-                <h3>{stats.todayOutput}</h3>
-                <p>Today's Output</p>
+
+        <div className="col-lg-4">
+          <div className="dashboard-card glass-card animated-card" style={{ animationDelay: '0.5s' }}>
+            <h5><i className="fas fa-bolt me-2"></i>Quick Stats</h5>
+            <div className="quick-stats">
+              <div className="quick-stat">
+                <div className="quick-stat-icon" style={{ background: 'linear-gradient(135deg, #667eea, #764ba2)' }}>
+                  <i className="fas fa-shopping-cart"></i>
+                </div>
+                <div className="quick-stat-content">
+                  <h4>15</h4>
+                  <p>Active Orders</p>
+                </div>
               </div>
-              <i className="fas fa-boxes fa-2x opacity-50"></i>
+              <div className="quick-stat">
+                <div className="quick-stat-icon" style={{ background: 'linear-gradient(135deg, #43e97b, #38ef7d)' }}>
+                  <i className="fas fa-star"></i>
+                </div>
+                <div className="quick-stat-content">
+                  <h4>92%</h4>
+                  <p>Quality Rate</p>
+                </div>
+              </div>
+              <div className="quick-stat">
+                <div className="quick-stat-icon" style={{ background: 'linear-gradient(135deg, #f093fb, #f5576c)' }}>
+                  <i className="fas fa-exclamation-triangle"></i>
+                </div>
+                <div className="quick-stat-content">
+                  <h4>2</h4>
+                  <p>Machine Issues</p>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="col-md-3 slide-in-up stagger-3">
-          <div className="stat-card" style={{ background: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)' }}>
-            <div className="d-flex justify-content-between align-items-center">
-              <div>
-                <h3>{stats.efficiency}%</h3>
-                <p>Efficiency</p>
+
+          <div className="dashboard-card glass-card animated-card mt-3" style={{ animationDelay: '0.6s' }}>
+            <h5><i className="fas fa-bell me-2"></i>Alerts</h5>
+            <div className="alerts">
+              <div className="alert-item alert-warning">
+                <i className="fas fa-exclamation-triangle"></i>
+                <span>Line 4 below target</span>
               </div>
-              <i className="fas fa-chart-line fa-2x opacity-50"></i>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-3 slide-in-up stagger-4">
-          <div className="stat-card" style={{ background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' }}>
-            <div className="d-flex justify-content-between align-items-center">
-              <div>
-                <h3>{stats.pendingReports}</h3>
-                <p>Pending Reports</p>
+              <div className="alert-item alert-info">
+                <i className="fas fa-tools"></i>
+                <span>Maintenance due today</span>
               </div>
-              <i className="fas fa-bell fa-2x opacity-50"></i>
+              <div className="alert-item alert-success">
+                <i className="fas fa-check-circle"></i>
+                <span>Order #123 completed</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Quick Actions */}
+      {/* Production Lines Status */}
       <div className="row">
-        <div className="col-md-8">
-          <div className="dashboard-card">
-            <h5>Quick Overview</h5>
-            <div className="row text-center">
-              <div className="col-4 mb-3">
-                <div className="p-3 bg-light rounded">
-                  <h4 className="text-primary">15</h4>
-                  <small>Active Orders</small>
+        <div className="col-lg-12">
+          <div className="dashboard-card glass-card animated-card" style={{ animationDelay: '0.7s' }}>
+            <h5><i className="fas fa-industry me-2"></i>Production Lines Status</h5>
+            <div className="production-lines">
+              <div className="production-line">
+                <div className="line-header">
+                  <span className="line-name">Line 1</span>
+                  <span className="line-status on">Active</span>
+                </div>
+                <div className="line-progress">
+                  <div className="progress-bar" style={{ width: '85%', background: 'linear-gradient(90deg, #43e97b, #38ef7d)' }}></div>
+                </div>
+                <div className="line-stats">
+                  <span><i className="fas fa-box"></i> 850/1000</span>
+                  <span><i className="fas fa-users"></i> 12</span>
+                  <span><i className="fas fa-clock"></i> 6h</span>
                 </div>
               </div>
-              <div className="col-4 mb-3">
-                <div className="p-3 bg-light rounded">
-                  <h4 className="text-success">92%</h4>
-                  <small>Quality Rate</small>
+              <div className="production-line">
+                <div className="line-header">
+                  <span className="line-name">Line 2</span>
+                  <span className="line-status warning">At Risk</span>
+                </div>
+                <div className="line-progress">
+                  <div className="progress-bar" style={{ width: '65%', background: 'linear-gradient(90deg, #f59e0b, #fbbf24)' }}></div>
+                </div>
+                <div className="line-stats">
+                  <span><i className="fas fa-box"></i> 650/1000</span>
+                  <span><i className="fas fa-users"></i> 10</span>
+                  <span><i className="fas fa-clock"></i> 5h</span>
                 </div>
               </div>
-              <div className="col-4 mb-3">
-                <div className="p-3 bg-light rounded">
-                  <h4 className="text-warning">2</h4>
-                  <small>Machine Issues</small>
+              <div className="production-line">
+                <div className="line-header">
+                  <span className="line-name">Line 3</span>
+                  <span className="line-status danger">Behind</span>
+                </div>
+                <div className="line-progress">
+                  <div className="progress-bar" style={{ width: '45%', background: 'linear-gradient(90deg, #ef4444, #f87171)' }}></div>
+                </div>
+                <div className="line-stats">
+                  <span><i className="fas fa-box"></i> 450/1000</span>
+                  <span><i className="fas fa-users"></i> 8</span>
+                  <span><i className="fas fa-clock"></i> 4h</span>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-4">
-          <div className="dashboard-card">
-            <h5>Alerts</h5>
-            <div className="alert alert-warning mb-2">
-              <small><i className="fas fa-exclamation-triangle me-1"></i> Line 4 below target</small>
-            </div>
-            <div className="alert alert-info">
-              <small><i className="fas fa-tools me-1"></i> Maintenance due today</small>
+              <div className="production-line">
+                <div className="line-header">
+                  <span className="line-name">Line 4</span>
+                  <span className="line-status on">Active</span>
+                </div>
+                <div className="line-progress">
+                  <div className="progress-bar" style={{ width: '78%', background: 'linear-gradient(90deg, #667eea, #764ba2)' }}></div>
+                </div>
+                <div className="line-stats">
+                  <span><i className="fas fa-box"></i> 780/1000</span>
+                  <span><i className="fas fa-users"></i> 11</span>
+                  <span><i className="fas fa-clock"></i> 5.5h</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
